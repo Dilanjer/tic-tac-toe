@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- <div class="boardCreator">
+      <select name="bord-size" id="bord-size">
+        <option value="normal" selected>3x3</option>
+        <option value="middle">4x4</option>
+        <option value="large">5x5</option>
+        <option value="very-large">6x6</option>
+      </select>
+    </div> -->
+
+    <div onclick="pageReload()" class="page-reload">
+      <img src="restart_icon.svg" alt="" />
+    </div>
+
+    <div class="wrapper">
+      <h1 class="title">Tic tac toe</h1>
+
+      <div class="player">
+        <div class="cross">X</div>
+        <div class="ai">
+          AI
+          <input class="checkbox" type="checkbox" />
+        </div>
+        <div class="circle">O</div>
+      </div>
+
+      <div class="game-board game-board--normal">
+        <div game-box class="box"></div>
+        <div game-box class="box"></div>
+        <div game-box class="box"></div>
+        <div game-box class="box"></div>
+        <div game-box class="box"></div>
+        <div game-box class="box"></div>
+        <div game-box class="box"></div>
+        <div game-box class="box"></div>
+        <div game-box class="box"></div>
+      </div>
+    </div>
+
+    <div class="player-info">
+      <div class="wrapper">
+        <span class="player-win"></span>
+        <button onclick="gameRestart()" class="restart">Restart</button>
+      </div>
+    </div>
+
+    <div class="player-click-off"></div>
+    <script src="game.js"></script>
+  </body>
+</html>
