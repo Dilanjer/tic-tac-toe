@@ -14,7 +14,6 @@ body .page-reload {
   margin: 15px;
 }
 body .page-reload img {
-  margin: 15px;
   width: 35px;
   height: 35px;
   transition: transform linear 0.1s;
