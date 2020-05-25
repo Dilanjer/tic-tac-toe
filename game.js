@@ -8,6 +8,7 @@ const aiElement = document.querySelector(".ai");
 const crossColor = document.querySelector(".cross");
 const circleColor = document.querySelector(".circle");
 const playerClickOff = document.querySelector(".player-click-off");
+const pageReloadBtn = document.querySelector(".page-reload");
 
 const winCombination = [
   // horizontal
@@ -31,6 +32,7 @@ function startGame() {
   aiElement.style.display = "inline-block";
   playerTurn = false;
   gameBoard.addEventListener("click", playerClick);
+  pageReloadBtn.addEventListener("click", pageReload);
 }
 
 async function playerClick(target, gameBox) {
