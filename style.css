@@ -10,15 +10,16 @@ body {
   height: 100vh;
   overflow: hidden;
 }
-body .page-reload {
-  margin: 15px;
+.page-reload {
+  position: absolute;
 }
-body .page-reload img {
+.page-reload img {
+  margin: 15px;
   width: 35px;
   height: 35px;
   transition: transform linear 0.1s;
 }
-body .page-reload img:active {
+.page-reload img:active {
   transform: scale(1.1);
   transform: rotate(-45deg);
 }
@@ -101,6 +102,7 @@ body .page-reload img:active {
 }
 .player-info {
   display: none;
+  z-index: 1;
   position: absolute;
   top: 50%;
   left: 50%;
