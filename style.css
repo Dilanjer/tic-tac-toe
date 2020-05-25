@@ -10,6 +10,9 @@ body {
   height: 100vh;
   overflow: hidden;
 }
+body .page-reload {
+  margin: 15px;
+}
 body .page-reload img {
   margin: 15px;
   width: 35px;
