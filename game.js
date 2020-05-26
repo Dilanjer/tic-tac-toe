@@ -67,6 +67,7 @@ function turnPlayer(item) {
   }
 }
 function aiClick() {
+  areaCheck();
   crossColor.style.backgroundColor = "orange";
   let isTrue = true;
   let count = 0;

@@ -11,15 +11,12 @@ body {
   overflow: hidden;
 }
 .page-reload {
-  position: absolute;
-}
-.page-reload img {
-  margin: 15px;
-  width: 35px;
-  height: 35px;
+  width: 55px;
+  height: 55px;
+  padding: 5px;
   transition: transform linear 0.1s;
 }
-.page-reload img:active {
+.page-reload:active {
   transform: scale(1.1);
   transform: rotate(-45deg);
 }
@@ -27,7 +24,7 @@ body {
   margin: 0;
   position: absolute;
   text-align: center;
-  top: 40%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
