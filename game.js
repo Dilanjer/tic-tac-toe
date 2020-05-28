@@ -44,6 +44,7 @@ async function playerClick(target, gameBox) {
     target.innerHTML = turnPlayer();
     target.setAttribute("clicked", "");
     if (aiCheckBox.checked) {
+      areaCheck();
       playerClickOff.style.display = "block";
       await sleep(800);
       aiClick();
@@ -67,7 +68,6 @@ function turnPlayer(item) {
   }
 }
 function aiClick() {
-  areaCheck();
   crossColor.style.backgroundColor = "orange";
   let isTrue = true;
   let count = 0;
