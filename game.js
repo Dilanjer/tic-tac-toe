@@ -46,6 +46,7 @@ async function playerClick(target, gameBox) {
     if (aiCheckBox.checked) {
       areaCheck();
       playerClickOff.style.display = "block";
+      areaCheck();
       await sleep(800);
       aiClick();
     }
