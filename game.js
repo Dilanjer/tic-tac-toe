@@ -44,7 +44,6 @@ async function playerClick(target, gameBox) {
     target.innerHTML = turnPlayer();
     target.setAttribute("clicked", "");
     if (aiCheckBox.checked) {
-      areaCheck();
       playerClickOff.style.display = "block";
       areaCheck();
       await sleep(800);
@@ -88,12 +87,10 @@ function areaCheck() {
   for (let i = 0; i < box.length; i++) {
     if (winCheck(box[i].innerHTML) && box[i].innerHTML != "") {
       gameBoard.removeEventListener("click", playerClick);
-      return (
-        (endGameInfo.textContent = `win: ${box[i].innerHTML}`),
-        (playerInfo.style.display = "block"),
-        (crossColor.style.backgroundColor = "blue"),
-        (circleColor.style.backgroundColor = "red")
-      );
+      playerInfo.style.display = "block";
+      crossColor.style.backgroundColor = "blue";
+      circleColor.style.backgroundColor = "red";
+      return (endGameInfo.textContent = `win: ${box[i].innerHTML}`);
     } else if (drawCheck()) {
       return (
         (endGameInfo.textContent = `Draw`), (playerInfo.style.display = "block")
@@ -133,14 +130,4 @@ async function pageReload() {
   await sleep(300);
   location.reload();
 }
-
-// function boardBoxCreator(num) {
-//   for (let i = 0; i < num; i++) {
-//     let box = document.createElement("div");
-//     box.setAttribute("game-box", "");
-//     box.classList.add("box");
-//     gameBoard.appendChild(box);
-//   }
-// }
-
 startGame();
