@@ -77,7 +77,7 @@ function turnPlayer(item) {
 function aiClick() {
   if (playerWinText.textContent != "") {
     playerClickOff.style.display = "none";
-    return console.log(playerWinText.textContent);
+    return;
   }
   crossColor.style.backgroundColor = "orange";
   let isTrue = true;
@@ -95,12 +95,14 @@ function aiClick() {
 }
 
 function areaCheck() {
+  if (playerWinText.textContent != "") return;
   for (let i = 0; i < box.length; i++) {
     if (winCheck(box[i].textContent) && box[i].textContent != "") {
       gameBoard.removeEventListener("click", playerClick);
       endGame.style.display = "block";
       crossColor.style.backgroundColor = "blue";
       circleColor.style.backgroundColor = "red";
+      console.log("win", box[i].textContent);
       return (playerWinText.textContent = `win: ${box[i].textContent}`);
     } else if (drawCheck()) {
       return (
@@ -111,7 +113,7 @@ function areaCheck() {
 }
 
 function winCheck(item) {
-  return winCombination.find((combintation) => {
+  return winCombination.some((combintation) => {
     return combintation.every((index) => {
       return box[index].textContent == item;
     });
@@ -137,19 +139,6 @@ function gameRestart() {
   });
   startGame();
 }
-
-// function winCounter() {
-//   console.log(playerWinText.textContent);
-//   if (playerWinText.textContent == "win: X") {
-//     crossWinInfo++;
-//     localStorage.setItem("crossWinInfo", crossWinInfo);
-//   } else if (playerWinText.textContent == "win: O") {
-//     circleWinInfo++;
-//     localStorage.setItem("circleWinInfo", circleWinInfo);
-//   } else {
-//     console.log(console.log("draw"));
-//   }
-// }
 
 async function pageReload() {
   await sleep(300);
