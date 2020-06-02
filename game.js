@@ -6,8 +6,13 @@ const aiCheckBox = document.querySelector(".checkbox");
 const ai = document.querySelector(".ai");
 const crossColor = document.querySelector(".cross");
 const circleColor = document.querySelector(".circle");
+const menu = document.querySelector(".menu");
+
 const playerClickOff = document.querySelector(".player-click-off");
-const pageReloadBtn = document.querySelector(".page-reload");
+const pageReloadBtn = document.querySelector(".page-reload-button");
+const menuOpenButton = document.querySelector(".menu-open-button");
+const menuCloseButton = document.querySelector(".menu-close-button");
+
 const circleWinCounter = document.querySelector(".circleWin");
 const crossWinCounter = document.querySelector(".crossWin");
 
@@ -24,6 +29,22 @@ const winCombination = [
   [0, 4, 8],
   [6, 4, 2],
 ];
+
+// menu
+menuOpenButton.addEventListener("click", menuOpen);
+menuCloseButton.addEventListener("click", menuClose);
+
+function menuOpen() {
+  menu.style.display = "block";
+  menuOpenButton.style.display = "none";
+}
+
+function menuClose() {
+  menu.style.display = "none";
+  menuOpenButton.style.display = "block";
+}
+
+// game
 let playerTurn = false;
 let crossWinInfo = window.localStorage.getItem("crossWinInfo");
 let circleWinInfo = window.localStorage.getItem("circleWinInfo");
@@ -155,6 +176,20 @@ function winCounter(item) {
     circleWinInfo++;
     window.localStorage.setItem("circleWinInfo", circleWinInfo);
   }
+}
+
+function clearData() {
+  circleWinInfo = 0;
+  crossWinInfo = 0;
+  window.localStorage.setItem("crossWinInfo", crossWinInfo);
+  window.localStorage.setItem("circleWinInfo", circleWinInfo);
+
+  circleWinCounter.textContent = circleWinInfo;
+  crossWinCounter.textContent = crossWinInfo;
+}
+
+function menuAbout() {
+  alert("from Artur Hovhannisyan");
 }
 
 async function pageReload() {
