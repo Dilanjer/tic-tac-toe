@@ -25,18 +25,25 @@ const winCombination = [
   [6, 4, 2],
 ];
 let playerTurn = false;
-// let crossWinInfo = localStorage.getItem("crossWinInfo");
-// let circleWinInfo = localStorage.getItem("circleWinInfo");
-// crossWinInfo = 0;
-// circleWinInfo = 0;
-// localStorage.setItem("circleWinInfo", circleWinInfo);
-// localStorage.setItem("crossWinInfo", crossWinInfo);
+let crossWinInfo = localStorage.getItem("crossWinInfo");
+let circleWinInfo = localStorage.getItem("circleWinInfo");
 
 function startGame() {
+  if (crossWinInfo === null && circleWinInfo === null) {
+    crossWinInfo = 0;
+    circleWinInfo = 0;
+    localStorage.setItem("crossWinInfo", crossWinInfo);
+    localStorage.setItem("circleWinInfo", circleWinInfo);
+  }
+
+  circleWinCounter.textContent = circleWinInfo;
+  crossWinCounter.textContent = crossWinInfo;
+
   crossColor.style.backgroundColor = "orange";
   circleColor.style.backgroundColor = "red";
   aiCheckBox.checked = true;
   ai.style.display = "block";
+
   playerTurn = false;
   gameBoard.addEventListener("click", playerClick);
   pageReloadBtn.addEventListener("click", pageReload);
@@ -102,7 +109,7 @@ function areaCheck() {
       endGame.style.display = "block";
       crossColor.style.backgroundColor = "blue";
       circleColor.style.backgroundColor = "red";
-      console.log("win", box[i].textContent);
+      winCounter(box[i].textContent);
       return (playerWinText.textContent = `win: ${box[i].textContent}`);
     } else if (drawCheck()) {
       return (
@@ -138,6 +145,16 @@ function gameRestart() {
     item.removeAttribute("clicked");
   });
   startGame();
+}
+
+function winCounter(item) {
+  if (item == "X") {
+    crossWinInfo++;
+    localStorage.setItem("crossWinInfo", crossWinInfo);
+  } else if (item == "O") {
+    circleWinInfo++;
+    localStorage.setItem("circleWinInfo", circleWinInfo);
+  }
 }
 
 async function pageReload() {
