@@ -1,14 +1,15 @@
 const gameBoard = document.querySelector(".game-board");
 const box = document.querySelectorAll(".box");
-const playerInfo = document.querySelector(".player-info");
-const endGameInfo = document.querySelector(".player-win");
-const restartBtn = document.querySelector(".restart");
+const endGame = document.querySelector(".player-info");
+const playerWinText = document.querySelector(".player-win-text");
 const aiCheckBox = document.querySelector(".checkbox");
-const aiElement = document.querySelector(".ai");
+const ai = document.querySelector(".ai");
 const crossColor = document.querySelector(".cross");
 const circleColor = document.querySelector(".circle");
 const playerClickOff = document.querySelector(".player-click-off");
 const pageReloadBtn = document.querySelector(".page-reload");
+const circleWinCounter = document.querySelector(".circleWin");
+const crossWinCounter = document.querySelector(".crossWin");
 
 const winCombination = [
   // horizontal
@@ -24,12 +25,18 @@ const winCombination = [
   [6, 4, 2],
 ];
 let playerTurn = false;
+// let crossWinInfo = localStorage.getItem("crossWinInfo");
+// let circleWinInfo = localStorage.getItem("circleWinInfo");
+// crossWinInfo = 0;
+// circleWinInfo = 0;
+// localStorage.setItem("circleWinInfo", circleWinInfo);
+// localStorage.setItem("crossWinInfo", crossWinInfo);
 
 function startGame() {
   crossColor.style.backgroundColor = "orange";
   circleColor.style.backgroundColor = "red";
   aiCheckBox.checked = true;
-  aiElement.style.display = "inline-block";
+  ai.style.display = "block";
   playerTurn = false;
   gameBoard.addEventListener("click", playerClick);
   pageReloadBtn.addEventListener("click", pageReload);
@@ -37,11 +44,11 @@ function startGame() {
 
 async function playerClick(target, gameBox) {
   target = event.target;
-  gameBox = target.hasAttribute("game-box");
-  aiElement.style.display = "none";
+  gameBox = target.hasAttribute("data-game-box");
+  ai.style.display = "none";
 
   if (gameBox && !target.hasAttribute("clicked")) {
-    target.innerHTML = turnPlayer();
+    target.textContent = turnPlayer();
     target.setAttribute("clicked", "");
     if (aiCheckBox.checked) {
       playerClickOff.style.display = "block";
@@ -68,6 +75,10 @@ function turnPlayer(item) {
   }
 }
 function aiClick() {
+  if (playerWinText.textContent != "") {
+    playerClickOff.style.display = "none";
+    return console.log(playerWinText.textContent);
+  }
   crossColor.style.backgroundColor = "orange";
   let isTrue = true;
   let count = 0;
@@ -75,7 +86,7 @@ function aiClick() {
     let randomBox = Math.floor(Math.random() * box.length);
     if (!box[randomBox].hasAttribute("clicked")) {
       box[randomBox].setAttribute("clicked", "");
-      box[randomBox].innerHTML = turnPlayer();
+      box[randomBox].textContent = turnPlayer();
       isTrue = false;
     }
     if (count++ == 20) break;
@@ -85,15 +96,15 @@ function aiClick() {
 
 function areaCheck() {
   for (let i = 0; i < box.length; i++) {
-    if (winCheck(box[i].innerHTML) && box[i].innerHTML != "") {
+    if (winCheck(box[i].textContent) && box[i].textContent != "") {
       gameBoard.removeEventListener("click", playerClick);
-      playerInfo.style.display = "block";
+      endGame.style.display = "block";
       crossColor.style.backgroundColor = "blue";
       circleColor.style.backgroundColor = "red";
-      return (endGameInfo.textContent = `win: ${box[i].innerHTML}`);
+      return (playerWinText.textContent = `win: ${box[i].textContent}`);
     } else if (drawCheck()) {
       return (
-        (endGameInfo.textContent = `Draw`), (playerInfo.style.display = "block")
+        (playerWinText.textContent = `Draw`), (endGame.style.display = "block")
       );
     }
   }
@@ -102,7 +113,7 @@ function areaCheck() {
 function winCheck(item) {
   return winCombination.find((combintation) => {
     return combintation.every((index) => {
-      return box[index].innerHTML == item;
+      return box[index].textContent == item;
     });
   });
 }
@@ -118,13 +129,27 @@ function sleep(ms) {
 }
 
 function gameRestart() {
-  playerInfo.style.display = "none";
+  endGame.style.display = "none";
+  playerWinText.textContent = "";
   box.forEach((item) => {
-    item.innerHTML = "";
+    item.textContent = "";
     item.removeAttribute("clicked");
   });
   startGame();
 }
+
+// function winCounter() {
+//   console.log(playerWinText.textContent);
+//   if (playerWinText.textContent == "win: X") {
+//     crossWinInfo++;
+//     localStorage.setItem("crossWinInfo", crossWinInfo);
+//   } else if (playerWinText.textContent == "win: O") {
+//     circleWinInfo++;
+//     localStorage.setItem("circleWinInfo", circleWinInfo);
+//   } else {
+//     console.log(console.log("draw"));
+//   }
+// }
 
 async function pageReload() {
   await sleep(300);
