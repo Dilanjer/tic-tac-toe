@@ -25,15 +25,15 @@ const winCombination = [
   [6, 4, 2],
 ];
 let playerTurn = false;
-let crossWinInfo = localStorage.getItem("crossWinInfo");
-let circleWinInfo = localStorage.getItem("circleWinInfo");
+let crossWinInfo = window.localStorage.getItem("crossWinInfo");
+let circleWinInfo = window.localStorage.getItem("circleWinInfo");
 
 function startGame() {
   if (crossWinInfo === null && circleWinInfo === null) {
     crossWinInfo = 0;
     circleWinInfo = 0;
-    localStorage.setItem("crossWinInfo", crossWinInfo);
-    localStorage.setItem("circleWinInfo", circleWinInfo);
+    window.localStorage.setItem("crossWinInfo", crossWinInfo);
+    window.localStorage.setItem("circleWinInfo", circleWinInfo);
   }
 
   circleWinCounter.textContent = circleWinInfo;
@@ -150,10 +150,10 @@ function gameRestart() {
 function winCounter(item) {
   if (item == "X") {
     crossWinInfo++;
-    localStorage.setItem("crossWinInfo", crossWinInfo);
+    window.localStorage.setItem("crossWinInfo", crossWinInfo);
   } else if (item == "O") {
     circleWinInfo++;
-    localStorage.setItem("circleWinInfo", circleWinInfo);
+    window.localStorage.setItem("circleWinInfo", circleWinInfo);
   }
 }
 
