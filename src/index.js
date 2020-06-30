@@ -199,6 +199,8 @@ function clearData() {
 
   circleWinCounter.textContent = circleWinInfo;
   crossWinCounter.textContent = crossWinInfo;
+
+  menuClose();
 }
 
 function menuAbout() {
