@@ -1,3 +1,8 @@
+import  './style/style.css';
+import closeIcon from './img/close_icon.svg';
+import menuIcon from './img/menu_icon.svg';
+import restarIcon from './img/restart_icon.svg';
+
 const gameBoard = document.querySelector(".game-board");
 const box = document.querySelectorAll(".box");
 const endGame = document.querySelector(".player-info");
@@ -7,6 +12,9 @@ const ai = document.querySelector(".ai");
 const crossColor = document.querySelector(".cross");
 const circleColor = document.querySelector(".circle");
 const menu = document.querySelector(".menu");
+const gameRestartBtn = document.querySelector(".restart-button");
+const clearDataBtn = document.querySelector(".data-clear-button");
+const menuAboutBtn = document.querySelector(".data-menu-open-button");
 
 const playerClickOff = document.querySelector(".player-click-off");
 const pageReloadBtn = document.querySelector(".page-reload-button");
@@ -33,6 +41,13 @@ const winCombination = [
 // menu
 menuOpenButton.addEventListener("click", menuOpen);
 menuCloseButton.addEventListener("click", menuClose);
+gameRestartBtn.addEventListener("click", gameRestart);
+clearDataBtn.addEventListener("click", clearData);
+menuAboutBtn.addEventListener("click", menuAbout);
+
+pageReloadBtn.src = restarIcon;
+menuOpenButton.src = menuIcon;
+menuCloseButton.src = closeIcon;
 
 function menuOpen() {
   menu.style.display = "block";
@@ -109,7 +124,6 @@ function aiClick() {
   }
   crossColor.style.backgroundColor = "orange";
   let isTrue = true;
-  let count = 0;
   while (isTrue) {
     let randomBox = Math.floor(Math.random() * box.length);
     if (!box[randomBox].hasAttribute("clicked")) {
@@ -117,7 +131,6 @@ function aiClick() {
       box[randomBox].textContent = turnPlayer();
       isTrue = false;
     }
-    if (count++ == 20) break;
   }
   playerClickOff.style.display = "none";
 }
@@ -189,7 +202,7 @@ function clearData() {
 }
 
 function menuAbout() {
-  alert("from Artur Hovhannisyan");
+  alert("This game from Artur Hovhannisyan");
 }
 
 async function pageReload() {
