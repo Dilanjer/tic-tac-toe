@@ -8,13 +8,14 @@ module.exports = {
   entry: './index.js',
   output: {
     filename: "bundle.[contenthash].js",
-    path: path.resolve(__dirname, 'output'),
+    // path: path.resolve(__dirname, 'output'),
+    path: path.resolve(__dirname),
   },
   plugins: [
     new HTMLWebpackPlugin({
       template: "./index.html",
     }),
-    new CleanWebpackPlugin()
+    // new CleanWebpackPlugin()
   ],
   module: {
     rules: [
