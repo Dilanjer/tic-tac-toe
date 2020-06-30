@@ -1,5 +1,6 @@
 const path = require('path');
 const HTMLWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
@@ -7,22 +8,29 @@ module.exports = {
   entry: './index.js',
   output: {
     filename: "bundle.[contenthash].js",
-    path: path.resolve(__dirname),
+    path: path.resolve(__dirname, 'output'),
   },
   plugins: [
     new HTMLWebpackPlugin({
       template: "./index.html",
     }),
+    new CleanWebpackPlugin()
   ],
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: ['style-loader','css-loader']
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /.svg$/,
-        use: ['file-loader']
+        use: [{
+          loader: 'file-loader',
+          options: {
+            path: 'img',
+            name: '[path][contenthash].[ext]'
+          },
+        }],
       }
     ]
   }
