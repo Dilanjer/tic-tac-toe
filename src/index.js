@@ -38,16 +38,23 @@ const winCombination = [
   [6, 4, 2],
 ];
 
-// menu
 menuOpenButton.addEventListener("click", menuOpen);
 menuCloseButton.addEventListener("click", menuClose);
 gameRestartBtn.addEventListener("click", gameRestart);
 clearDataBtn.addEventListener("click", clearData);
 menuAboutBtn.addEventListener("click", menuAbout);
+gameBoard.addEventListener("click", playerClick);
+pageReloadBtn.addEventListener("click", gameRestart);
+aiCheckBox.addEventListener("change", turnAiChackbox);
 
 pageReloadBtn.src = restarIcon;
 menuOpenButton.src = menuIcon;
 menuCloseButton.src = closeIcon;
+
+let playerTurn = false;
+let crossWinInfo = window.localStorage.getItem("crossWinInfo");
+let circleWinInfo = window.localStorage.getItem("circleWinInfo");
+aiCheckBox.checked = JSON.parse(window.localStorage.getItem("aiCheckBoxInfo"));
 
 function menuOpen() {
   menu.style.display = "block";
@@ -59,17 +66,14 @@ function menuClose() {
   menuOpenButton.style.display = "block";
 }
 
-// game
-let playerTurn = false;
-let crossWinInfo = window.localStorage.getItem("crossWinInfo");
-let circleWinInfo = window.localStorage.getItem("circleWinInfo");
-
 function startGame() {
   if (crossWinInfo === null && circleWinInfo === null) {
     crossWinInfo = 0;
     circleWinInfo = 0;
+    aiCheckBox.checked = true;
     window.localStorage.setItem("crossWinInfo", crossWinInfo);
     window.localStorage.setItem("circleWinInfo", circleWinInfo);
+    window.localStorage.setItem("aiCheckBoxInfo", aiCheckBox.checked);
   }
 
   circleWinCounter.textContent = circleWinInfo;
@@ -77,12 +81,8 @@ function startGame() {
 
   crossColor.style.backgroundColor = "orange";
   circleColor.style.backgroundColor = "red";
-  aiCheckBox.checked = true;
   ai.style.display = "block";
-
   playerTurn = false;
-  gameBoard.addEventListener("click", playerClick);
-  pageReloadBtn.addEventListener("click", pageReload);
 }
 
 async function playerClick(target, gameBox) {
@@ -102,6 +102,7 @@ async function playerClick(target, gameBox) {
   }
   areaCheck();
 }
+
 
 function turnPlayer(item) {
   playerTurn = !playerTurn;
@@ -191,6 +192,15 @@ function winCounter(item) {
   }
 }
 
+function turnAiChackbox() {
+  if(aiCheckBox.checked) {
+    window.localStorage.setItem("aiCheckBoxInfo", aiCheckBox.checked);
+  } else {
+    window.localStorage.setItem("aiCheckBoxInfo", aiCheckBox.checked);
+  }
+}
+
+
 function clearData() {
   circleWinInfo = 0;
   crossWinInfo = 0;
@@ -205,10 +215,5 @@ function clearData() {
 
 function menuAbout() {
   alert("This game from Artur Hovhannisyan");
-}
-
-async function pageReload() {
-  await sleep(300);
-  location.reload();
 }
 startGame();
