@@ -43,7 +43,6 @@ menuCloseButton.addEventListener("click", menuClose);
 gameRestartBtn.addEventListener("click", gameRestart);
 clearDataBtn.addEventListener("click", clearData);
 menuAboutBtn.addEventListener("click", menuAbout);
-gameBoard.addEventListener("click", playerClick);
 pageReloadBtn.addEventListener("click", gameRestart);
 aiCheckBox.addEventListener("change", turnAiChackbox);
 
@@ -83,6 +82,8 @@ function startGame() {
   circleColor.style.backgroundColor = "red";
   ai.style.display = "block";
   playerTurn = false;
+
+  gameBoard.addEventListener("click", playerClick);
 }
 
 async function playerClick(target, gameBox) {
